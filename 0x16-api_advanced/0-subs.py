@@ -37,8 +37,4 @@ def get_subreddit_subscribers(subreddit):
         # In case the JSON structure is not as expected
         return 0
 
-# Example usage
-subreddit = "python"
-subscribers = get_subreddit_subscribers(subreddit)
-print(f"Subscribers for subreddit '{subreddit}': {subscribers}")
 
