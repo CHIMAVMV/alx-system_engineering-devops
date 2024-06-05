@@ -9,11 +9,11 @@ import sys
 
 def number_of_subscribers(subreddit):
     """ Queries to Reddit API """
-    u_agent = 'Mozilla/5.0'
-
+    u_agent = "Mozilla/5.0 (compatible; MyRedditBot/1.0)"
     headers = {
         'User-Agent': u_agent
     }
+
 
     url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
     res = requests.get(url, headers=headers, allow_redirects=False)
