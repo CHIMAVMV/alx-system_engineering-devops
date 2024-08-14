@@ -1,31 +1,37 @@
 #!/usr/bin/python3
-"""how many subs? """
+""" Top ten """
 
 
-def number_of_subscribers(subreddit):
-    """ Returns subscriber count of subreddit or 0 """
+def top_ten(subreddit):
+    """
+    Prints the titles of the first 10 hot posts listed for a given subreddit
+    """
     from requests import get
 
-    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+    url = "https://www.reddit.com/r/{}/hot/.json?limit=10".format(subreddit)
 
     headers = {'user-agent': 'my-app/0.0.1'}
 
     r = get(url, headers=headers, allow_redirects=False)
 
     if r.status_code != 200:
-        return 0
+        print(None)
+        return None
 
     try:
         js = r.json()
 
     except ValueError:
-        return 0
+        print(None)
+        return None
 
-    data = js.get("data")
+    try:
 
-    if data:
-        sub_count = data.get("subscribers")
-        if sub_count:
-            return sub_count
+        data = js.get("data")
+        children = data.get("children")
+        for child in children[:10]:
+            post = child.get("data")
+            print(post.get("title"))
 
-    return 0
+    except:
+        print(None)
