@@ -1,16 +1,31 @@
 #!/usr/bin/python3
-"""Function to querry subscribers on a given Reddit subreddit."""
-import requests
+""" How many subs? """
 
-def number_of_subscribes(subreddit):
-    """Return the total numbers of subcribers on a given subreddit."""
-    url = f"https://www.reddit.com/r/{subreddit}/about.json"
-    headers = {'user-agent': 'request'}
-    response = request.get(url, headers=headers, allow_redirrects=false)
-    
-    if response.status_code != 200:
+
+def number_of_subscribers(subreddit):
+    """ Returns subscriber count of subreddit or 0 """
+    from requests import get
+
+    url = "https://www.reddit.com/r/{}/about.json".format(subreddit)
+
+    headers = {'user-agent': 'my-app/0.0.1'}
+
+    r = get(url, headers=headers, allow_redirects=False)
+
+    if r.status_code != 200:
         return 0
-    data = response.json().get("data")
-    num_subs = data.get("subscribers")
 
-    return num_subs
+    try:
+        js = r.json()
+
+    except ValueError:
+        return 0
+
+    data = js.get("data")
+
+    if data:
+        sub_count = data.get("subscribers")
+        if sub_count:
+            return sub_count
+
+    return 0
