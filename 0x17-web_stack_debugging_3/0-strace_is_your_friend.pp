@@ -4,6 +4,6 @@ exec { 'fix-wordpress':
                   'OLD=phpp',
                   'NEW=php'],
   command     => 'sudo sed -i "s/$OLD/$NEW/" $DIR',
-  path        => ['/usr/bin', '/bin'],
+  path        => ['/usr/bin/:/bin'],
   returns     => [0, 1]
 }
